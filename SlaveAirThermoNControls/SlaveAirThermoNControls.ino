@@ -22,8 +22,8 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 unsigned long lastMsg = 0;
 #define MSG_BUFFER_SIZE  (50)
-const char* ssid = "myrepublic4";
-const char* password = "komputernet";
+const char* ssid = "LoreMaster1";
+const char* password = "AzazelIsLoreMaster";
 const char* mqtt_server = "192.168.0.125";
 int        port     = 1883;
 
@@ -139,46 +139,50 @@ void loop() {
   if (!client.connected()) {
     reconnect();
   }
-  if (true){
-    digitalWrite(relayPin,HIGH);
-    delay(3000);
-    digitalWrite(relayPin,LOW);
-    
-  }
+////Old Relay function to test relay  
+//  if (true){
+//    digitalWrite(relayPin,HIGH);
+//    delay(3000);
+//    digitalWrite(relayPin,LOW);
+//    
+//  }
   client.loop();
-  printValues();
+////Use for troubleshooting
+//  printValues();
   ESP.deepSleep(delayTime);
 
 }
-void printValues() {
-  DynamicJsonDocument doc(1024);
-  doc["device"] = DeviceName;
-  doc["timestamp"]   = millis();
 
-  doc["data"][0] = bme.readTemperature();
-  doc["data"][1] = (bme.readPressure() / 100.0F);
-  doc["data"][2] = bme.readAltitude(SEALEVELPRESSURE_HPA);
-  doc["data"][3] = bme.readHumidity();
-  char buffer[256];
-  serializeJson(doc, buffer);
-    Serial.print("Temperature = ");
-    Serial.print(doc["data"][0].as<int>());
-    Serial.println(" °C");
-
-    Serial.print("Pressure = ");
-
-    Serial.print(doc["data"][1].as<int>());
-    Serial.println(" hPa");
-
-    Serial.print("Approx. Altitude = ");
-    Serial.print(doc["data"][2].as<int>());
-    Serial.println(" m");
-
-    Serial.print("Humidity = ");
-    Serial.print(doc["data"][3].as<int>());
-    Serial.println(" %");
-
-    Serial.println("test");
-    client.publish("outTopic", buffer);
-    delay(100);
-}
+////Use for troubleshooting
+//void printValues() {
+//  DynamicJsonDocument doc(1024);
+//  doc["device"] = DeviceName;
+//  doc["timestamp"]   = millis();
+//
+//  doc["data"][0] = bme.readTemperature();
+//  doc["data"][1] = (bme.readPressure() / 100.0F);
+//  doc["data"][2] = bme.readAltitude(SEALEVELPRESSURE_HPA);
+//  doc["data"][3] = bme.readHumidity();
+//  char buffer[256];
+//  serializeJson(doc, buffer);
+//    Serial.print("Temperature = ");
+//    Serial.print(doc["data"][0].as<int>());
+//    Serial.println(" °C");
+//
+//    Serial.print("Pressure = ");
+//
+//    Serial.print(doc["data"][1].as<int>());
+//    Serial.println(" hPa");
+//
+//    Serial.print("Approx. Altitude = ");
+//    Serial.print(doc["data"][2].as<int>());
+//    Serial.println(" m");
+//
+//    Serial.print("Humidity = ");
+//    Serial.print(doc["data"][3].as<int>());
+//    Serial.println(" %");
+//
+//    Serial.println("test");
+//    client.publish("outTopic", buffer);
+//    delay(100);
+//}
